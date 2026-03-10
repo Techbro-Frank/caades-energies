@@ -1,31 +1,27 @@
+import { motion } from 'framer-motion';
 import { useState } from 'react';
+import products from '../data/products';
 
-const products = [
-    { name: 'EPS Systems', desc: 'Electric Power Supply systems for reliable downhole operations and monitoring.' },
-    { name: 'Control Valves', desc: 'High-precision flow control valves engineered for demanding oil & gas environments.' },
-    { name: 'Tubulars', desc: 'Premium quality tubular goods for drilling, completion, and production operations.' },
-    { name: 'Casings', desc: 'Heavy-duty well casings designed for structural integrity and pressure containment.' },
-    { name: 'Production Tubings', desc: 'Corrosion-resistant production tubings for efficient hydrocarbon flow.' },
-    { name: 'Smart Instruments', desc: 'Advanced downhole monitoring and control instruments with real-time data.' },
-    { name: 'Subsurface Safety Valves', desc: 'Fail-safe subsurface valves for well control and environmental protection.' },
-    { name: 'Flow Control Equipment', desc: 'Integrated flow regulation and management equipment for optimized production.' },
-    { name: 'Packers', desc: 'Reliable zonal isolation packers for completion and workover applications.' },
-    { name: 'Expandable Liner Hangers', desc: 'Next-gen expandable systems for superior wellbore sealing and support.' },
-    { name: 'Swellable Technology', desc: 'Innovative swellable elastomer solutions for zonal isolation challenges.' },
-    { name: 'Sand Control Systems', desc: 'Premium screens and filtration systems for sand management and prevention.' },
-    { name: 'Downhole Gauges', desc: 'Permanent downhole pressure and temperature gauges for reservoir monitoring.' },
-    { name: 'Gas Lift Mandrels', desc: 'Gas lift mandrels and valves for artificial lift and production optimization.' },
-];
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+};
 
 const Products = () => {
     const [hoveredIdx, setHoveredIdx] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
 
     return (
-        <section id="products" className="w-full bg-dark-bg py-20 md:py-28 lg:py-32 overflow-hidden">
+        <section id="products" className="w-full bg-dark-bg py-10 md:py-14 lg:py-16 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={fadeInUp}
+                    className="text-center max-w-3xl mx-auto mb-16 lg:mb-20"
+                >
                     <div className="flex items-center justify-center gap-3 mb-4">
                         <span className="block w-8 h-0.5 bg-light-green" />
                         <span className="text-light-green text-xs font-semibold tracking-[0.25em] uppercase">
@@ -42,7 +38,7 @@ const Products = () => {
                     <p className="text-white/50 text-base sm:text-lg leading-relaxed">
                         World-class drilling, completion, and production equipment sourced from leading global OEMs.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Circular Orbit — Desktop */}
                 <div

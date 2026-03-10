@@ -6,8 +6,12 @@ import hero3 from '../assets/images/hero-3.png';
 import hero4 from '../assets/images/hero-4.png';
 import hero5 from '../assets/images/hero-5.png';
 import hero6 from '../assets/images/hero-6.png';
+import hero7 from '../assets/images/hero-7.png';
+import hero8 from '../assets/images/hero-8.png';
+import hero9 from '../assets/images/hero-9.png';
+import hero10 from '../assets/images/hero-10.png';
 
-const slides = [hero1, hero2, hero3, hero4, hero5, hero6];
+const slides = [hero1, hero2, hero3, hero4, hero5, hero6, hero7, hero8, hero9, hero10];
 
 const HeroSlider = () => {
     const [current, setCurrent] = useState(0);

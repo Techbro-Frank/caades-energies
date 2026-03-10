@@ -84,17 +84,11 @@ const Navbar = () => {
                         onClick={(e) => handleLinkClick(e, '#hero')}
                         className="flex items-center gap-2 group shrink-0"
                     >
-                        <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-light-green flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <span className="text-white font-bold text-lg leading-none">C</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-white font-bold text-lg leading-tight tracking-tight">
-                                CAADES
-                            </span>
-                            <span className="text-light-green text-[10px] font-medium tracking-[0.2em] uppercase leading-none">
-                                Energies
-                            </span>
-                        </div>
+                        <img
+                            src="/caades-logo.png"
+                            alt="Caades Energies Logo"
+                            className="h-12 md:h-16 w-auto transition-transform duration-300 group-hover:scale-105"
+                        />
                     </a>
 
                     {/* Desktop Links */}

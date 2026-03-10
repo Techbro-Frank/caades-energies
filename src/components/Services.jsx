@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import services from '../data/services';
 
 const iconMap = {
@@ -53,12 +54,33 @@ const iconMap = {
     ),
 };
 
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
 const Services = () => {
     return (
-        <section id="services" className="w-full bg-white py-20 md:py-28 lg:py-32">
+        <section id="services" className="w-full bg-white py-10 md:py-14 lg:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={fadeInUp}
+                    className="text-center max-w-3xl mx-auto mb-16"
+                >
                     <div className="flex items-center justify-center gap-3 mb-4">
                         <span className="block w-8 h-0.5 bg-primary" />
                         <span className="text-primary text-xs font-semibold tracking-[0.25em] uppercase">
@@ -73,37 +95,51 @@ const Services = () => {
                         </span>
                     </h2>
                     <p className="text-dark-bg/60 text-base sm:text-lg leading-relaxed">
-                        Delivering comprehensive energy solutions across the full value chain of Nigeria&apos;s oil and gas industry.
+                        Comprehensive energy and technical support services tailored to the specific needs of the Nigerian Petroleum Industry.
                     </p>
-                </div>
+                </motion.div>
 
-                {/* Service Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                {/* Services Grid */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    variants={staggerContainer}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
                     {services.map((service, i) => (
-                        <div
+                        <motion.div
                             key={i}
-                            className="group bg-white rounded-2xl p-6 sm:p-8 shadow-[0_2px_15px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.12)] transition-all duration-400 hover:-translate-y-2 border border-gray-100"
+                            variants={fadeInUp}
+                            whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(15, 143, 58, 0.12)" }}
+                            className="group bg-white rounded-2xl p-8 shadow-[0_2px_15px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_40px_rgba(15,143,58,0.15)] transition-all duration-400 border border-gray-100 hover:border-primary/30 relative overflow-hidden"
                         >
+                            {/* Decorative gradient corner */}
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-[100px] transition-all duration-500 group-hover:from-primary/15" />
+
                             {/* Icon */}
-                            <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:scale-110">
+                            <div className="relative w-14 h-14 rounded-xl bg-primary/5 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(15,143,58,0.3)]">
                                 {iconMap[service.icon]}
                             </div>
 
-                            {/* Title */}
-                            <h3 className="text-lg font-bold text-dark-bg mb-3 leading-snug group-hover:text-primary transition-colors duration-300">
+                            {/* Content */}
+                            <h3 className="text-xl font-bold text-dark-bg mb-3 group-hover:text-primary transition-colors duration-300">
                                 {service.title}
                             </h3>
-
-                            {/* Description */}
-                            <p className="text-dark-bg/60 text-sm leading-relaxed">
+                            <p className="text-dark-bg/60 text-sm leading-relaxed mb-6">
                                 {service.description}
                             </p>
 
-                            {/* Subtle bottom accent */}
-                            <div className="mt-5 w-0 h-0.5 bg-gradient-to-r from-primary to-light-green rounded-full transition-all duration-500 group-hover:w-12" />
-                        </div>
+                            {/* Read More link */}
+                            <div className="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
+                                Learn More
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );

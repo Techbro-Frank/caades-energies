@@ -9,6 +9,7 @@ import Clients from '../components/Clients';
 import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 const Home = () => {
     return (
@@ -24,6 +25,7 @@ const Home = () => {
             <Projects />
             <Contact />
             <Footer />
+            <WhatsAppButton />
         </div>
     );
 };

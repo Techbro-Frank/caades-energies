@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import policies from '../data/policies';
 
@@ -38,6 +39,21 @@ const policyIcons = {
     lock: '🔒', transport: '🚛', water: '🌊', quality: '✅',
 };
 
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
 const HSE = () => {
     const [showPolicies, setShowPolicies] = useState(false);
     const [expandedPolicy, setExpandedPolicy] = useState(null);
@@ -56,64 +72,82 @@ const HSE = () => {
     }, []);
 
     return (
-        <section id="hse" className="w-full relative overflow-hidden">
-            {/* Green gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-dark-green via-primary to-dark-green" />
+        <section id="hse" className="w-full relative bg-dark-green bg-gradient-to-br from-dark-green via-primary/90 to-dark-green overflow-hidden">
             {/* Subtle pattern overlay */}
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
-            <div className="relative z-10 py-20 md:py-28 lg:py-32">
+            <div className="relative z-10 py-10 md:py-14 lg:py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Section Header */}
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={fadeInUp}
+                        className="text-center max-w-3xl mx-auto mb-16"
+                    >
                         <div className="flex items-center justify-center gap-3 mb-4">
-                            <span className="block w-8 h-0.5 bg-white/50" />
+                            <span className="block w-8 h-0.5 bg-white/40" />
                             <span className="text-white/80 text-xs font-semibold tracking-[0.25em] uppercase">
-                                Our Commitment
+                                Compliance & Safety
                             </span>
-                            <span className="block w-8 h-0.5 bg-white/50" />
+                            <span className="block w-8 h-0.5 bg-white/40" />
                         </div>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-                            HSE &{' '}
-                            <span className="text-accent">Policy</span>
+                            HSE & <span className="text-light-green">Policy</span>
                         </h2>
-                        <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-2">
-                            Safety is a core operational principle of Caades Energies.
+                        <p className="text-white/70 text-base sm:text-lg leading-relaxed">
+                            Our commitment to Health, Safety, and Environment is at the core of every operation we undertake.
                         </p>
-                        <p className="text-white/50 text-sm leading-relaxed max-w-2xl mx-auto">
-                            We are committed to the highest standards of Health, Safety, and Environmental management across every aspect of our operations.
-                        </p>
-                    </div>
+                    </motion.div>
 
-                    {/* Highlight Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-14">
-                        {highlights.map((item, i) => (
-                            <div
+                    {/* Policy Highlights */}
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={staggerContainer}
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+                    >
+                        {[
+                            { title: 'Zero Harm', desc: 'Working towards zero accidents, injuries, and environmental impact across all sites.' },
+                            { title: 'Full Compliance', desc: 'Strict adherence to local and international safety regulations and industry standards.' },
+                            { title: 'Regular Audits', desc: 'Continuous monitoring and assessment of our safety systems and operational protocols.' },
+                        ].map((policy, i) => (
+                            <motion.div
                                 key={i}
-                                className="group bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-6 sm:p-8 hover:bg-white/15 hover:border-white/25 transition-all duration-400 hover:-translate-y-1"
+                                variants={fadeInUp}
+                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-300"
                             >
-                                <div className="w-14 h-14 rounded-xl bg-white/15 text-white flex items-center justify-center mb-5 group-hover:bg-accent/30 group-hover:scale-110 transition-all duration-300">
-                                    {item.icon}
-                                </div>
-                                <h3 className="text-white text-lg font-bold mb-2">{item.title}</h3>
-                                <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
-                            </div>
+                                <h3 className="text-xl font-bold text-white mb-3">{policy.title}</h3>
+                                <p className="text-white/60 text-sm leading-relaxed">{policy.desc}</p>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* CTA — View All Policies */}
-                    <div className="text-center">
-                        <button
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="text-center"
+                    >
+                        <motion.button
                             onClick={() => setShowPolicies(true)}
-                            className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-white text-primary font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer"
+                            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(255,255,255,0.2)" }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-bold rounded-xl shadow-xl hover:bg-light-green hover:text-white transition-all duration-300 cursor-pointer"
                         >
                             View All Policies
-                            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
-                        </button>
-                        <p className="text-white/40 text-sm mt-3">13 policies covering all aspects of our operations</p>
-                    </div>
+                        </motion.button>
+                        <p className="mt-4 text-white/40 text-xs italic">
+                            13 policies covering all aspects of our operations
+                        </p>
+                    </motion.div>
                 </div>
             </div>
 
@@ -156,8 +190,8 @@ const HSE = () => {
                                     <div
                                         key={i}
                                         className={`border rounded-xl transition-all duration-300 ${isExpanded
-                                                ? 'border-primary/30 shadow-lg bg-primary/[0.02]'
-                                                : 'border-gray-200 hover:border-primary/20 hover:shadow-md'
+                                            ? 'border-primary/30 shadow-lg bg-primary/[0.02]'
+                                            : 'border-gray-200 hover:border-primary/20 hover:shadow-md'
                                             }`}
                                     >
                                         {/* Policy Header — clickable */}
